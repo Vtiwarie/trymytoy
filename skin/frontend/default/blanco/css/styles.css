@@ -520,13 +520,13 @@ tr.summary-details-excluded { font-style:italic; }
 .header .header-left .form-language { margin: -10px 0 10px 0; }
 .header .header-left .lang { float:left; }
 .header .header-left .lang a { }
-.header .header-center  { float:left; width: 260px; margin: 0px 0 0 22px; }
+.header .header-center  { float:left; width: 260px; margin: 0px 0 0 25px; }
 .header .store-switcher { text-align: right; margin-bottom: 10px;}
 .header .links { margin: 10px 0 0 0; }
 .header .top-link-cart-li { display: none; }
 .header .currency {float:right; padding: 1px 0; }
 .header .minicart { float:right; }
-.header .logo { float:left; text-decoration:none !important; }
+.header .logo { float:left; text-decoration:none !important; max-width:240px;}
 .header .logo strong { position:absolute; top:-999em; left:-999em; width:0; height:0; font-size:0; line-height:0; text-indent:-999em; overflow:hidden; }
 .header #search_autocomplete { margin: 15px 0 0 0;}
 .header .top-promo { float:left; width:117px; height:30px; margin:12px 10px 0; background:url(../images/bkg_top-promo.gif) 0 0 no-repeat; text-indent:-999em; overflow:hidden; }
