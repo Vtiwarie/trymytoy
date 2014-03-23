@@ -65,7 +65,7 @@
     bottom:15px;
 }
 .iosSlider .sliderNavi .naviItem {	
-	background-color: transparent;
+	background-color: rgb(250, 180, 180);
 	background-image: url(../images/controls-sprite.png);
 	background-position: 0 -164px;
 	margin-left:5px;
