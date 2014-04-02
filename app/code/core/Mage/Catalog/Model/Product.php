@@ -1606,8 +1606,8 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 	{
 //		$mageFilename = 'app/Mage.php';
 //		require_once $mageFilename;
-		Mage::setIsDeveloperMode(true);
-		ini_set('display_errors', 1);
+//		Mage::setIsDeveloperMode(true);
+//		ini_set('display_errors', 1);
 		umask(0);
 		Mage::app();
 		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
