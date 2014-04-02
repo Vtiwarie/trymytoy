@@ -1601,6 +1601,21 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         return $this->getTypeInstance(true)->getWeight($this);
     }
+	
+	public function getExtraInfo()
+	{
+//		$mageFilename = 'app/Mage.php';
+//		require_once $mageFilename;
+		Mage::setIsDeveloperMode(true);
+		ini_set('display_errors', 1);
+		umask(0);
+		Mage::app();
+		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+		$sql        = "Select * from mage_catalog_product_entity";
+		$rows       = $connection->fetchAll($sql); //fetchRow($sql), fetchOne($sql),...
+//		Zend_Debug::dump($rows);
+		return $rows;
+	}
 
     /**
      * Retrieve option instance
