@@ -1610,8 +1610,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
 //		ini_set('display_errors', 1);
 		umask(0);
 		Mage::app();
+		$id = $this->getId();
 		$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-		$sql        = "Select * from mage_catalog_product_entity";
+		$sql        = "Select * from mage_catalog_product_entity WHERE entity_id = {$id}";
 		$rows       = $connection->fetchAll($sql); //fetchRow($sql), fetchOne($sql),...
 //		Zend_Debug::dump($rows);
 		return $rows;
