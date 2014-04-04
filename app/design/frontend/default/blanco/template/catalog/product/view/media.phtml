@@ -88,11 +88,11 @@
         <div class="more-views-arrow next">&nbsp;</div>                 
     <?php endif;?>  
 </div>
-<div class="more-views">
-	<div class="slide">
+<div style="margin:10px auto 0;width:344px;">
+	<div>
 		<?php $extra = $_product->getExtraInfo(); ?>
 		<?php if ($extra): ?>
-			<p>
+			<p style="margin:0 8px 0 8px;">
 				<span class="video-link" data-video-id="<?= $extra[0]['video_id']; ?>" style='display:block;width:70px;padding:20px 0;text-align:center;background-color:rgb(220, 220, 220);clear:both;cursor:pointer;'>
 					Play Video
 				</span>
