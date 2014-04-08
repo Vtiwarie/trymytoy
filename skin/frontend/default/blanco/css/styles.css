@@ -71,7 +71,7 @@ small         { font-size:1em; }
 big           { font-size:1.15em; }
 /*sup           { font-size:1em; vertical-align:top; }*/
 ::-moz-selection {background-color: #FF4A4A; color: #fff;}
-::selection {background-color: #FF4A4A; color: #fff;}
+::selection {/*background-color: #FF4A4A;*/ color: #fff;}
 /* Lists */
 ul,ol         { list-style:none; }
 #product_tabs_description_contents ul,#product_tabs_description_contents ol {list-style: disc; margin-left:20px;}
