@@ -7,7 +7,7 @@ $this->setColumnCount($columnCount);
 $_helper = $this->helper('catalog/output');
 $model = Mage::getModel('catalog/product'); //getting product model
 
-$_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
+$_products = $this->getCustomProductList(array(27, 26, 17, 22));
 ?>
 
 
@@ -18,11 +18,11 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
 		<?php $extra = $_product->getExtraInfo(); ?>
 		<div>
 			<?php if ($extra): ?>
-				<div style="visibility:hidden;">
-					<span id="video-link-<?= $prod['entity_id']; ?>" class="video-link" data-video-id="<?= $extra[0]['video_id']; ?>">
-						Play Video
-					</span>	
-				</div>
+				<!--				<div style="visibility:hidden;">
+									<span id="video-link-<?= $prod['entity_id']; ?>" class="video-link" data-video-id="<?= $extra[0]['video_id']; ?>">
+										Play Video
+									</span>	
+								</div>-->
 			<?php endif; ?>
 		</div>
 	<?php endforeach; ?>
@@ -33,16 +33,15 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
 		<div class="slider">  
 			<div class="slide"><img class="royalImage" src="/skin/frontend/default/blanco/images/catalog/product/slider/kids-on-grass-2.jpg" alt="" /></div>
 			<div class="slide"><img class="royalImage" src="/skin/frontend/default/blanco/images/catalog/product/slider/kids children toys 4916x3206 wallpaper_www.wallpaperfo.com_63.jpg" alt="" /></div>
-			<?php if ($_products): ?>
-				<?php foreach ($_products AS $prod): ?>
+			<?php // if ($_products): ?>
+			<?php // foreach ($_products AS $prod): ?>
 
-					<?php
-					$_product = $model->load($prod['entity_id']);
-
-					echo "<div class='slide'><img class='royalImage' src='" . stripslashes($prod['image_slider']) . "' /></div>";
-					?>
-				<?php endforeach; ?>
-			<?php endif; ?>
+			<?php
+//					$_product = $model->load($prod['entity_id']);
+//					echo "<div class='slide'><img class='royalImage' src='" . stripslashes($prod['image_slider']) . "' /></div>";
+			?>
+			<?php // endforeach; ?>
+			<?php // endif; ?>
 		</div>
 		<div class="sliderNavi"><span class="naviItem selected">1</span> <span class="naviItem">2</span> <span class="naviItem">3</span> <span class="naviItem">4</span><span class="naviItem">5</span></div>
 		<div class="prev">&nbsp;</div>
@@ -50,11 +49,14 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
 	</div>
 </div>
 
-
+<?php
+//echo '<pre>';
+//var_dump($_products); echo '</pre>';
+?>
 
 <script type="text/javascript">
-	jQuery(document).ready(function(){
-		jQuery(document).on('click', '.play-vid', function(){
+	jQuery(document).ready(function() {
+		jQuery(document).on('click', '.play-vid', function() {
 			var videoId = parseInt(jQuery(this).data('vidid'));
 			console.log(videoId)
 			jQuery('#video-link-' + videoId).trigger('click');
@@ -62,18 +64,116 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
 	});
 </script>
 
-
 <div class="clear">
 	<h5 style="float: left; border: 1px solid #EFEFEF; padding: 4px 15px; margin: 13px 0 0 20px; border-bottom: 0;">NEW PRODUCTS</h5>
 	<div class="clear" style="border-top: 1px solid #EFEFEF; height: 13px;">&nbsp;</div>
-	<!--{{block type="catalog/product_new" name="blanco.catalog.product.new" alias="product_homepage" template="catalog/product/new.phtml"}}-->
-	<div class="newproducts">
-        <div class="carousel" style="position: relative; top: 0px; left: 0px; overflow: hidden; z-index: 1; width: 714px; height: 318px;">
-            <div class="slider" style="-webkit-perspective: 1000px; -webkit-backface-visibility: hidden; position: relative; cursor: -webkit-grab; width: 5213px; overflow: hidden; -webkit-transform: translateX(0px);">
+    <div class="newproducts">
+        <div class="carousel" style="position: relative; top: 0px; left: 0px; overflow: hidden; z-index: 1; width: 940px; height: 318px;">
+            <div class="slider" style="-webkit-perspective: 1000px; -webkit-backface-visibility: hidden; position: relative; cursor: -webkit-grab; width: 5066px; overflow: hidden; -webkit-transform: translateX(0px);">
+				
+				
+			<?php foreach ($_products AS $prod): ?>
+					<?php
+					$_product = $model->load($prod['entity_id']);
+					$url = "http://" . "{$_SERVER['SERVER_NAME']}/" . $_product->getData('url_key') . '.html';
+					$s = substr($_product->getName(), 0, 50);
+					$name = (strlen($s) >= 50) ? $s . '...' : $s;
+					$image = $prod['image_slider'];
+					$price = $_product->getPrice();
+					?>
+					<div class="item slide " style="float: left; width: 226px;"> 
+						<div class="newproduct_grid">New</div>
+						<div class="saleproduct ">Sale</div>
+
+
+						<a href="<?= $url ?>" title="Fashion Demo Jacket" class="product-image"><img src="<?= $image; ?>" width="210" height="210" alt="<?= $name; ?>"></a>
+						<div class="new-description">
+							<h3><a href="<?= $url ?>" title="<?= $name ?>"><?= $name ?></a></h3>
 
 
 
-<!--					<a href="http://8theme.com/demo/blanco/fashion-demo-shoes-619.html" title="Fashion Demo Shoes" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/1/_/1.1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_1.jpg" width="210" height="210" alt="Fashion Demo Shoes"></a>
+							<div class="price-box">
+
+								<p class="old-price">
+									<span class="price-label">Regular Price:</span>
+									<span id="old-price-327">
+										<?= $price; ?>                </span>
+								</p>
+
+
+
+							</div>
+
+
+
+							<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/fashion-demo-jacket.html?options=cart')"><span><span>Add to Cart</span></span></button>
+							<div style="clear: both;"></div>
+						</div>                    
+					</div>
+				<?php endforeach; ?>
+				
+				
+				
+				
+				
+<!--				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+
+					<div class="ratings">
+						<div class="rating-box">
+							<div class="rating" style="width:80%"></div>
+						</div>
+						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/342/';
+						return false;">1 Review(s)</a></span>
+					</div>
+
+					<a href="http://8theme.com/demo/blanco/fashion-demo-dress-464.html" title="Fashion Demo Dress" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/3/_/3.1_3_1_1_1_1_1_2_1_1_1_1_1.jpg" width="210" height="210" alt="Fashion Demo Dress"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/fashion-demo-dress-464.html" title="Fashion Demo Dress">Fashion Demo Dress</a></h3>
+
+
+
+						<div class="price-box">
+							<span class="regular-price" id="product-price-342">
+								<span class="price">$4,399.00</span>                                    </span>
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/fashion-demo-dress-464.html?options=cart')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+
+
+					<a href="http://8theme.com/demo/blanco/fashion-demo-dress.html" title="Fashion Demo Dress" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/9/_/9.2_4_1_1_1_1_1.jpg" width="210" height="210" alt="Fashion Demo Dress"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/fashion-demo-dress.html" title="Fashion Demo Dress">Fashion Demo Dress</a></h3>
+
+
+
+						<div class="price-box">
+							<span class="regular-price" id="product-price-334">
+								<span class="price">$2,990.00</span>                                    </span>
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/fashion-demo-dress.html?options=cart')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+                    <div class="saleproduct ">Sale</div>
+
+
+					<a href="http://8theme.com/demo/blanco/fashion-demo-shoes-619.html" title="Fashion Demo Shoes" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/1/_/1.1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_1.jpg" width="210" height="210" alt="Fashion Demo Shoes"></a>
 					<div class="new-description">
 						<h3><a href="http://8theme.com/demo/blanco/fashion-demo-shoes-619.html" title="Fashion Demo Shoes">Fashion Demo Shoes</a></h3>
 
@@ -101,52 +201,8 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
 						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/fashion-demo-shoes-619.html?options=cart')"><span><span>Add to Cart</span></span></button>
 						<div style="clear: both;"></div>
 					</div>                    
-				</div>-->
-
-				
-				<?php if ($_products): ?>
-					<?php foreach ($_products AS $prod): ?>
-						<?php $_product = $model->load($prod['entity_id']); ?>
-						<div class="item slide " style="width: 233px; float: left;"> 
-							<a href="<?= $_product->getProductUrl(); ?>" title="<?= $_product->getName(); ?>" class="product-image"><img src="<?= $_product['image_slider']; ?>" width="210" height="210" alt="<?= $_product->getName(); ?>"></a>
-							<div class="new-description">
-								<h3><a href="<?= $_product->getProductUrl(); ?>" title="<?= $_product->getName(); ?>"><?= $_product->getName(); ?></a></h3>
-
-								<p class="special-price">
-									<span class="price-label">Price:</span>
-									<span class="price" id="product-price-311">
-										<?= number_format($_product->getPrice(), 2); ?>           
-									</span>
-								</p>
-
-								<!--<?php $extra = $_product->getExtraInfo(); ?>
-
-								<?php if ($extra): ?>
-									<div>
-										<span class="play-vid" data-vidid="<?= $prod['entity_id']; ?>" style='display:block;width:70px;margin:0 auto; width:100%;text-align:center;background-color:rgb(230, 230, 230);clear:both;cursor:pointer;'>
-											Play Video
-										</span>	
-									</div>
-								<?php endif; ?>-->
-
-							</div>
-
-						</div>
-					<?php endforeach; ?>
-				<?php endif; ?>
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-<!--				<div class="item slide " style="width: 233px; float: left;"> 
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
 					<div class="newproduct_grid">New</div>
                     <div class="saleproduct ">Sale</div>
 
@@ -155,8 +211,8 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
 							<div class="rating" style="width:100%"></div>
 						</div>
 						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
-								t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/301/';
-								return false;">1 Review(s)</a></span>
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/301/';
+						return false;">1 Review(s)</a></span>
 					</div>
 
 					<a href="http://8theme.com/demo/blanco/simple-fashion-shoes.html" title="Simple Fashion Shoes" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/4/_/4.1_1_1_1_1_1_1_1_1_1_1_1.jpg" width="210" height="210" alt="Simple Fashion Shoes"></a>
@@ -188,7 +244,7 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
 						<div style="clear: both;"></div>
 					</div>                    
 				</div>
-				<div class="item slide " style="width: 233px; float: left;"> 
+				<div class="item slide " style="float: left; width: 226px;"> 
 					<div class="newproduct_grid">New</div>
                     <div class="saleproduct ">Sale</div>
 
@@ -197,8 +253,8 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
 							<div class="rating" style="width:47%"></div>
 						</div>
 						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
-								t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/328/';
-								return false;">1 Review(s)</a></span>
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/328/';
+						return false;">1 Review(s)</a></span>
 					</div>
 
 					<a href="http://8theme.com/demo/blanco/nice-t-shirts.html" title="Nice T-shirts" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/1/3/13.1_3.jpg" width="210" height="210" alt="Nice T-shirts"></a>
@@ -230,7 +286,7 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
 						<div style="clear: both;"></div>
 					</div>                    
 				</div>
-				<div class="item slide " style="width: 233px; float: left;"> 
+				<div class="item slide " style="float: left; width: 226px;"> 
 					<div class="newproduct_grid">New</div>
 
 					<div class="ratings">
@@ -238,8 +294,8 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
 							<div class="rating" style="width:40%"></div>
 						</div>
 						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
-								t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/296/';
-								return false;">1 Review(s)</a></span>
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/296/';
+						return false;">1 Review(s)</a></span>
 					</div>
 
 					<a href="http://8theme.com/demo/blanco/demo-fashion-shoes.html" title="Demo Fashion Shoes" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/9/_/9.1_2_1_1_1_1_1_1.jpg" width="210" height="210" alt="Demo Fashion Shoes"></a>
@@ -256,8 +312,503 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
 
 
 
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/demo-fashion-shoes.html?options=cart')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+                    <div class="saleproduct ">Sale</div>
+
+
+					<a href="http://8theme.com/demo/blanco/simple-t-shirt.html" title="Simple T-shirt" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/8/_/8.1_2_1_1_1_1_1_1_1.jpg" width="210" height="210" alt="Simple T-shirt"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/simple-t-shirt.html" title="Simple T-shirt">Simple T-shirt</a></h3>
+
+
+
+						<div class="price-box">
+
+							<p class="old-price">
+								<span class="price-label">Regular Price:</span>
+								<span class="price" id="old-price-323">
+									$1,900.00                </span>
+							</p>
+
+							<p class="special-price">
+								<span class="price-label">Special Price:</span>
+								<span class="price" id="product-price-323">
+									$1,799.90                </span>
+							</p>
+
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/simple-t-shirt.html?options=cart')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+
+					<div class="ratings">
+						<div class="rating-box">
+							<div class="rating" style="width:60%"></div>
+						</div>
+						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/316/';
+						return false;">1 Review(s)</a></span>
+					</div>
+
+					<a href="http://8theme.com/demo/blanco/fashion-jacket.html" title="Fashion Jacket" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/1/_/1.1_2.jpg" width="210" height="210" alt="Fashion Jacket"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/fashion-jacket.html" title="Fashion Jacket">Fashion Jacket</a></h3>
+
+
+
+						<div class="price-box">
+							<span class="regular-price" id="product-price-316">
+								<span class="price">$3,790.00</span>                                    </span>
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/fashion-jacket.html?options=cart')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+
+					<div class="ratings">
+						<div class="rating-box">
+							<div class="rating" style="width:73%"></div>
+						</div>
+						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/333/';
+						return false;">1 Review(s)</a></span>
+					</div>
+
+					<a href="http://8theme.com/demo/blanco/demo-dress.html" title="Demo Dress" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/1/0/10.1_4_1_1_1_1.jpg" width="210" height="210" alt="Demo Dress"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/demo-dress.html" title="Demo Dress">Demo Dress</a></h3>
+
+
+
+						<div class="price-box">
+							<span class="regular-price" id="product-price-333">
+								<span class="price">$3,100.00</span>                                    </span>
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/checkout/cart/add/uenc/aHR0cDovLzh0aGVtZS5jb20vZGVtby9ibGFuY28v/product/333/')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+                    <div class="saleproduct ">Sale</div>
+
+					<div class="ratings">
+						<div class="rating-box">
+							<div class="rating" style="width:100%"></div>
+						</div>
+						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/315/';
+						return false;">1 Review(s)</a></span>
+					</div>
+
+					<a href="http://8theme.com/demo/blanco/fashion-shoes-622.html" title="Fashion Shoes" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/1/0/10.1_2_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2_1_1_1_1_1.jpg" width="210" height="210" alt="Fashion Shoes"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/fashion-shoes-622.html" title="Fashion Shoes">Fashion Shoes</a></h3>
+
+
+
+						<div class="price-box">
+
+							<p class="old-price">
+								<span class="price-label">Regular Price:</span>
+								<span class="price" id="old-price-315">
+									$900.00                </span>
+							</p>
+
+							<p class="special-price">
+								<span class="price-label">Special Price:</span>
+								<span class="price" id="product-price-315">
+									$849.90                </span>
+							</p>
+
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/fashion-shoes-622.html?options=cart')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+                    <div class="saleproduct ">Sale</div>
+
+
+					<a href="http://8theme.com/demo/blanco/nice-simple-shoes.html" title="Nice Simple Shoes" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/1/9/19.1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_2.jpg" width="210" height="210" alt="Nice Simple Shoes"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/nice-simple-shoes.html" title="Nice Simple Shoes">Nice Simple Shoes</a></h3>
+
+
+
+						<div class="price-box">
+
+							<p class="old-price">
+								<span class="price-label">Regular Price:</span>
+								<span class="price" id="old-price-310">
+									$719.00                </span>
+							</p>
+
+							<p class="special-price">
+								<span class="price-label">Special Price:</span>
+								<span class="price" id="product-price-310">
+									$599.00                </span>
+							</p>
+
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/nice-simple-shoes.html?options=cart')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+                    <div class="saleproduct ">Sale</div>
+
+					<div class="ratings">
+						<div class="rating-box">
+							<div class="rating" style="width:100%"></div>
+						</div>
+						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/302/';
+						return false;">1 Review(s)</a></span>
+					</div>
+
+					<a href="http://8theme.com/demo/blanco/nice-fashion-shoes.html" title="Nice Fashion Shoes" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/2/1/21.1_1_1_1_1_1_1_1_1_1_1_1_1.jpg" width="210" height="210" alt="Nice Fashion Shoes"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/nice-fashion-shoes.html" title="Nice Fashion Shoes">Nice Fashion Shoes</a></h3>
+
+
+
+						<div class="price-box">
+
+							<p class="old-price">
+								<span class="price-label">Regular Price:</span>
+								<span class="price" id="old-price-302">
+									$1,350.00                </span>
+							</p>
+
+							<p class="special-price">
+								<span class="price-label">Special Price:</span>
+								<span class="price" id="product-price-302">
+									$1,199.00                </span>
+							</p>
+
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/nice-fashion-shoes.html?options=cart')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+                    <div class="saleproduct ">Sale</div>
+
+					<div class="ratings">
+						<div class="rating-box">
+							<div class="rating" style="width:100%"></div>
+						</div>
+						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/297/';
+						return false;">1 Review(s)</a></span>
+					</div>
+
+					<a href="http://8theme.com/demo/blanco/simple-shoes-924.html" title="Simple Shoes" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/2/3/23.1_1_1_1_1_1_1_1.jpg" width="210" height="210" alt="Simple Shoes"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/simple-shoes-924.html" title="Simple Shoes">Simple Shoes</a></h3>
+
+
+
+						<div class="price-box">
+
+							<p class="old-price">
+								<span class="price-label">Regular Price:</span>
+								<span class="price" id="old-price-297">
+									$855.00                </span>
+							</p>
+
+							<p class="special-price">
+								<span class="price-label">Special Price:</span>
+								<span class="price" id="product-price-297">
+									$799.90                </span>
+							</p>
+
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/checkout/cart/add/uenc/aHR0cDovLzh0aGVtZS5jb20vZGVtby9ibGFuY28v/product/297/')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+
+					<div class="ratings">
+						<div class="rating-box">
+							<div class="rating" style="width:80%"></div>
+						</div>
+						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/237/';
+						return false;">2 Review(s)</a></span>
+					</div>
+
+					<a href="http://8theme.com/demo/blanco/akio-dresser-592.html" title="Dresser Akio " class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/2/3/23.jpg" width="210" height="210" alt="Dresser Akio "></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/akio-dresser-592.html" title="Dresser Akio ">Dresser Akio </a></h3>
+
+
+
+						<div class="price-box">
+							<span class="regular-price" id="product-price-237">
+								<span class="price">$384.99</span>                                    </span>
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/checkout/cart/add/uenc/aHR0cDovLzh0aGVtZS5jb20vZGVtby9ibGFuY28v/product/237/')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+
+					<div class="ratings">
+						<div class="rating-box">
+							<div class="rating" style="width:80%"></div>
+						</div>
+						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/235/';
+						return false;">1 Review(s)</a></span>
+					</div>
+
+					<a href="http://8theme.com/demo/blanco/akio-dresser-590.html" title="Akio Dresser" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/2/1/21.jpg" width="210" height="210" alt="Akio Dresser"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/akio-dresser-590.html" title="Akio Dresser">Akio Dresser</a></h3>
+
+
+
+						<div class="price-box">
+							<span class="regular-price" id="product-price-235">
+								<span class="price">$541.99</span>                                    </span>
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/checkout/cart/add/uenc/aHR0cDovLzh0aGVtZS5jb20vZGVtby9ibGFuY28v/product/235/')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+                    <div class="saleproduct ">Sale</div>
+
+
+					<a href="http://8theme.com/demo/blanco/fashion-dress-584.html" title="Fashion Dress" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/4/_/4.1_3_1_1_1_1_1_2_1_1_1_1.jpg" width="210" height="210" alt="Fashion Dress"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/fashion-dress-584.html" title="Fashion Dress">Fashion Dress</a></h3>
+
+
+
+						<div class="price-box">
+
+							<p class="old-price">
+								<span class="price-label">Regular Price:</span>
+								<span class="price" id="old-price-341">
+									$4,500.00                </span>
+							</p>
+
+							<p class="special-price">
+								<span class="price-label">Special Price:</span>
+								<span class="price" id="product-price-341">
+									$4,299.00                </span>
+							</p>
+
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/fashion-dress-584.html?options=cart')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+
+					<div class="ratings">
+						<div class="rating-box">
+							<div class="rating" style="width:80%"></div>
+						</div>
+						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/243/';
+						return false;">1 Review(s)</a></span>
+					</div>
+
+					<a href="http://8theme.com/demo/blanco/akio-dresser-598.html" title="Akio Watch" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/3/0/30.jpg" width="210" height="210" alt="Akio Watch"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/akio-dresser-598.html" title="Akio Watch">Akio Watch</a></h3>
+
+
+
+						<div class="price-box">
+							<span class="regular-price" id="product-price-243">
+								<span class="price">$465.99</span>                                    </span>
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/checkout/cart/add/uenc/aHR0cDovLzh0aGVtZS5jb20vZGVtby9ibGFuY28v/product/243/')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+                    <div class="saleproduct ">Sale</div>
+
+					<div class="ratings">
+						<div class="rating-box">
+							<div class="rating" style="width:56%"></div>
+						</div>
+						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/329/';
+						return false;">3 Review(s)</a></span>
+					</div>
+
+					<a href="http://8theme.com/demo/blanco/nice-demo-jacket-450.html" title="Nice Demo Jacket" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/1/4/14.1_3.jpg" width="210" height="210" alt="Nice Demo Jacket"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/nice-demo-jacket-450.html" title="Nice Demo Jacket">Nice Demo Jacket</a></h3>
+
+
+
+						<div class="price-box">
+
+							<p class="old-price">
+								<span class="price-label">Regular Price:</span>
+								<span class="price" id="old-price-329">
+									$4,400.00                </span>
+							</p>
+
+							<p class="special-price">
+								<span class="price-label">Special Price:</span>
+								<span class="price" id="product-price-329">
+									$4,299.00                </span>
+							</p>
+
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/nice-demo-jacket-450.html?options=cart')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide " style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+                    <div class="saleproduct ">Sale</div>
+
+					<div class="ratings">
+						<div class="rating-box">
+							<div class="rating" style="width:100%"></div>
+						</div>
+						<span class="amount"><a href="#" onclick="var t = opener ? opener.window : window;
+						t.location.href = 'http://8theme.com/demo/blanco/review/product/list/id/320/';
+						return false;">1 Review(s)</a></span>
+					</div>
+
+					<a href="http://8theme.com/demo/blanco/nice-fashion-jacket.html" title="Nice Fashion Jacket" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/5/_/5.2_2_1_1_1_1.jpg" width="210" height="210" alt="Nice Fashion Jacket"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/nice-fashion-jacket.html" title="Nice Fashion Jacket">Nice Fashion Jacket</a></h3>
+
+
+
+						<div class="price-box">
+
+							<p class="old-price">
+								<span class="price-label">Regular Price:</span>
+								<span class="price" id="old-price-320">
+									$3,900.00                </span>
+							</p>
+
+							<p class="special-price">
+								<span class="price-label">Special Price:</span>
+								<span class="price" id="product-price-320">
+									$3,770.00                </span>
+							</p>
+
+
+						</div>
+
+
 
 						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/nice-fashion-jacket.html?options=cart')"><span><span>Add to Cart</span></span></button>
+						<div style="clear: both;"></div>
+					</div>                    
+				</div>
+				<div class="item slide last" style="float: left; width: 226px;"> 
+					<div class="newproduct_grid">New</div>
+                    <div class="saleproduct ">Sale</div>
+
+
+					<a href="http://8theme.com/demo/blanco/nice-demo-shoes.html" title="Nice Demo Shoes" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/small_image/210x/9df78eab33525d08d6e5fb8d27136e95/1/4/14.1_2_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1.jpg" width="210" height="210" alt="Nice Demo Shoes"></a>
+					<div class="new-description">
+						<h3><a href="http://8theme.com/demo/blanco/nice-demo-shoes.html" title="Nice Demo Shoes">Nice Demo Shoes</a></h3>
+
+
+
+						<div class="price-box">
+
+							<p class="old-price">
+								<span class="price-label">Regular Price:</span>
+								<span class="price" id="old-price-305">
+									$1,215.00                </span>
+							</p>
+
+							<p class="special-price">
+								<span class="price-label">Special Price:</span>
+								<span class="price" id="product-price-305">
+									$1,099.00                </span>
+							</p>
+
+
+						</div>
+
+
+
+						<button type="button" title="Add to Cart" class="button btn-cart" onclick="setLocation('http://8theme.com/demo/blanco/nice-demo-shoes.html?options=cart')"><span><span>Add to Cart</span></span></button>
 						<div style="clear: both;"></div>
 					</div>                    
 				</div>-->
@@ -265,17 +816,31 @@ $_products = $this->getCustomProductList(array(17, 21, 22, 23, 24, 26));
         </div>
 		<div class="prev new-arrow disabled" style="cursor: pointer;">&nbsp;</div>
 		<div class="next new-arrow" style="cursor: pointer;">&nbsp;</div>  
-	</div>
+	</div>     
+    <div style="clear: both;"></div>
+	
+  
 </div>
-
-<script type="text/javascript">
-		jQuery(document).ready(function(){
-			 jQuery(".video-link").jqueryVideoLightning({
-				autoplay: 1,
-				backdrop_color: "#ddd",
-				backdrop_opacity: 0.6,
-				glow: 20,
-				glow_color: "#000"
-			});
+	
+	
+	<script type="text/javascript">
+		jQuery('.new-arrow.prev').addClass('disabled');
+		jQuery('.carousel').iosSlider({
+			desktopClickDrag: true,
+			snapToChildren: true,
+			infiniteSlider: false,
+			navNextSelector: '.new-arrow.next',
+			navPrevSelector: '.new-arrow.prev',
+			lastSlideOffset: 3,
+			onFirstSlideComplete: function() {
+				jQuery('.new-arrow.prev').addClass('disabled');
+			},
+			onLastSlideComplete: function() {
+				jQuery('.new-arrow.next').addClass('disabled');
+			},
+			onSlideChange: function() {
+				jQuery('.new-arrow.prev').removeClass('disabled');
+				jQuery('.new-arrow.next').removeClass('disabled');
+			}
 		});
-</script>
+	</script>  

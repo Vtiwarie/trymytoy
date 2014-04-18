@@ -1105,7 +1105,7 @@ span.currency-code { background-position: bottom center; }
 
 
 /* Product Images */
-.product-view .product-img-box { float:left; width: 400px; position: relative;}
+.product-view .product-img-box { float:left; width: 350px; position: relative;}
 .col3-layout .product-view .product-img-box { float:none; margin:0 auto; }
 .product-view .product-img-box .product-image { margin:0 0 10px; border:1px solid #cacaca; }
 .product-view .product-img-box .product-image-zoom { position:relative; width:300px; height:300px; overflow:hidden; z-index:9; }
