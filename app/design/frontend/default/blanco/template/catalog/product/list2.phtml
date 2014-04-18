@@ -11,48 +11,17 @@ $_products = $this->getCustomProductList(array(24, 26, 17, 27));
 ?>
 
 
-<?php if ($_products): ?>
-	<?php foreach ($_products AS $prod): ?>
-		<?php $_product = $model->load($prod['entity_id']); ?>
-
-		<?php $extra = $_product->getExtraInfo(); ?>
-		<div>
-			<?php if ($extra): ?>
-				<!--				<div style="visibility:hidden;">
-									<span id="video-link-<?= $prod['entity_id']; ?>" class="video-link" data-video-id="<?= $extra[0]['video_id']; ?>">
-										Play Video
-									</span>	
-								</div>-->
-			<?php endif; ?>
-		</div>
-	<?php endforeach; ?>
-<?php endif; ?>
-
 <div id="ioSliderDiv" style="position:relative;">
 	<div class="iosSlider">  
 		<div class="slider">  
 			<div class="slide"><img class="royalImage" src="/skin/frontend/default/blanco/images/catalog/product/slider/kids-on-grass-2.jpg" alt="" /></div>
 			<div class="slide"><img class="royalImage" src="/skin/frontend/default/blanco/images/catalog/product/slider/kids children toys 4916x3206 wallpaper_www.wallpaperfo.com_63.jpg" alt="" /></div>
-			<?php // if ($_products): ?>
-			<?php // foreach ($_products AS $prod): ?>
-
-			<?php
-//					$_product = $model->load($prod['entity_id']);
-//					echo "<div class='slide'><img class='royalImage' src='" . stripslashes($prod['image_slider']) . "' /></div>";
-			?>
-			<?php // endforeach; ?>
-			<?php // endif; ?>
 		</div>
 		<div class="sliderNavi"><span class="naviItem selected">1</span> <span class="naviItem">2</span> <span class="naviItem">3</span> <span class="naviItem">4</span><span class="naviItem">5</span></div>
 		<div class="prev">&nbsp;</div>
 		<div class="next">&nbsp;</div>
 	</div>
 </div>
-
-<?php
-//echo '<pre>';
-//var_dump($_products); echo '</pre>';
-?>
 
 <script type="text/javascript">
 	jQuery(document).ready(function() {
